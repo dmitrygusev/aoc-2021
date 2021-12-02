@@ -22,8 +22,7 @@ public class Input {
     private final String name;
 
     public Input(LocalDate date) {
-        this.date = date;
-        this.name = INPUT_TXT;
+        this(date, INPUT_TXT);
     }
 
     public Input(LocalDate date, String name) {
@@ -36,16 +35,14 @@ public class Input {
     }
 
     public long[] asLongArray() {
-        List<String> result;
         try {
-            result = Files.readAllLines(fetchInput());
+            return Files.readAllLines(fetchInput())
+                    .stream()
+                    .mapToLong(Long::valueOf)
+                    .toArray();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return result
-                .stream()
-                .mapToLong(Long::valueOf)
-                .toArray();
     }
 
     public List<String> asListOfStrings() {
