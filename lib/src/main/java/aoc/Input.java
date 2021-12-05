@@ -53,7 +53,7 @@ public class Input {
         }
     }
 
-    private Path fetchInput() {
+    public Path fetchInput() {
         Path inputPath = buildInputPath();
         if (inputPath.toFile().exists()) return inputPath;
 
