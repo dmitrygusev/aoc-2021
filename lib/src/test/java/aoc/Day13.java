@@ -151,5 +151,7 @@ class Day13 {
                 #    #  # #  # #  # # #  #    #  # #\040\040\040
                 #    #  #  ###  ##  #  # #### #  # ####
                 """, solution2(input).toString());
+
+        System.out.println(solution2(input.file("test2.txt")));
     }
 }
