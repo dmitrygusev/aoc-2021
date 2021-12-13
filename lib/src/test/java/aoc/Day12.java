@@ -33,13 +33,13 @@ class Day12 {
         }
 
         //  Spanning trees
-        public Set<List<Node>> bfs(Node start, Node end, BiFunction<Stack<Node>, Node, Boolean> canVisit) {
+        public Set<List<Node>> dfs(Node start, Node end, BiFunction<Stack<Node>, Node, Boolean> canVisit) {
             HashSet<List<Node>> allPaths = new HashSet<>();
-            bfs(new Stack<>(), start, end, allPaths, canVisit);
+            dfs(new Stack<>(), start, end, allPaths, canVisit);
             return allPaths;
         }
 
-        private void bfs(
+        private void dfs(
                 Stack<Node> path,
                 Node next,
                 Node end,
@@ -55,7 +55,7 @@ class Day12 {
                     return;
                 }
                 List<Node> adjacent = connections.get(next);
-                adjacent.forEach(target -> bfs(path, target, end, paths, canVisit));
+                adjacent.forEach(target -> dfs(path, target, end, paths, canVisit));
             } finally {
                 path.pop();
             }
@@ -78,7 +78,7 @@ class Day12 {
     long solution1(Input raw) {
         UndirectedGraph input = parseInput(raw);
 
-        Set<List<Node>> paths = input.bfs(
+        Set<List<Node>> paths = input.dfs(
                 new Node("start"),
                 new Node("end"),
                 (path, next) -> !path.contains(next) || !isLowerCase(next.name));
@@ -105,7 +105,7 @@ class Day12 {
 
         Set<List<Node>> allPaths = new HashSet<>();
         smallCaves.stream().map(selectedSmallCave ->
-                        input.bfs(new Node("start"), new Node("end"),
+                        input.dfs(new Node("start"), new Node("end"),
                                 (path, next) -> {
                                     long timesVisited = path.stream().filter(node -> node.equals(next)).count();
                                     boolean small = isLowerCase(next.name);
