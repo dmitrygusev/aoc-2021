@@ -27,13 +27,13 @@ class Day9 {
     long solution1(Input raw) {
         List<String> input = parseInput(raw);
 
-        Map<Day4.Pos, Integer> lows = getLows(input);
+        Map<Pos, Integer> lows = getLows(input);
 
         return lows.values().stream().mapToInt(i -> i + 1).sum();
     }
 
-    private Map<Day4.Pos, Integer> getLows(List<String> input) {
-        Map<Day4.Pos, Integer> lows = new HashMap<>();
+    private Map<Pos, Integer> getLows(List<String> input) {
+        Map<Pos, Integer> lows = new HashMap<>();
 
         for (int i = 0; i < input.size(); i++) {
             String line = input.get(i);
@@ -48,7 +48,7 @@ class Day9 {
                 if (i < input.size() - 1) bottom = input.get(i + 1).charAt(j);
                 char current = line.charAt(j);
                 if (current < top && current < right && current < bottom && current < left) {
-                    lows.put(new Day4.Pos(i, j), Integer.parseInt("" + current));
+                    lows.put(new Pos(i, j), Integer.parseInt("" + current));
                 }
             }
         }
@@ -65,12 +65,12 @@ class Day9 {
     long solution2(Input raw) {
         List<String> input = parseInput(raw);
 
-        Map<Day4.Pos, Integer> lows = getLows(input);
+        Map<Pos, Integer> lows = getLows(input);
 
         List<Integer> basinSizes = new ArrayList<>();
 
         lows.keySet().forEach(low -> {
-            Set<Day4.Pos> basin = new HashSet<>();
+            Set<Pos> basin = new HashSet<>();
             explore(input, low, basin);
             basinSizes.add(basin.size());
         });
@@ -83,7 +83,7 @@ class Day9 {
                 .reduce(1, (a, b) -> a * b);
     }
 
-    private void explore(List<String> input, Day4.Pos at, Set<Day4.Pos> basin) {
+    private void explore(List<String> input, Pos at, Set<Pos> basin) {
         if (basin.contains(at)) return;
         basin.add(at);
         String line = input.get(at.i());
@@ -97,10 +97,10 @@ class Day9 {
         if (j < line.length() - 1) right = line.charAt(j + 1);
         if (i > 0) top = input.get(i - 1).charAt(j);
         if (i < input.size() - 1) bottom = input.get(i + 1).charAt(j);
-        if (top < '9') explore(input, new Day4.Pos(i - 1, j), basin);
-        if (right < '9') explore(input, new Day4.Pos(i, j + 1), basin);
-        if (bottom < '9') explore(input, new Day4.Pos(i + 1, j), basin);
-        if (left < '9') explore(input, new Day4.Pos(i, j - 1), basin);
+        if (top < '9') explore(input, new Pos(i - 1, j), basin);
+        if (right < '9') explore(input, new Pos(i, j + 1), basin);
+        if (bottom < '9') explore(input, new Pos(i + 1, j), basin);
+        if (left < '9') explore(input, new Pos(i, j - 1), basin);
     }
 
     @Test

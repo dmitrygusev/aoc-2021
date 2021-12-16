@@ -9,19 +9,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 class Day4 {
-    record Pos(int i, int j) {
-        public Set<Pos> adjacentWithDiagonals() {
-            return Set.of(
-                    new Pos(i - 1, j),
-                    new Pos(i - 1, j + 1),
-                    new Pos(i, j + 1),
-                    new Pos(i + 1, j + 1),
-                    new Pos(i + 1, j),
-                    new Pos(i + 1, j - 1),
-                    new Pos(i, j - 1),
-                    new Pos(i - 1, j - 1));
-        }
-    }
 
     static class Board {
         Map<Integer, Pos> grid = new HashMap<>();
@@ -57,13 +44,13 @@ class Day4 {
         public void mark(int n) {
             Pos pos = grid.get(n);
             if (pos != null) {
-                matches[pos.i][pos.j] = true;
+                matches[pos.i()][pos.j()] = true;
             }
         }
 
         public int score() {
             return grid.entrySet().stream()
-                    .filter(entry -> !matches[entry.getValue().i][entry.getValue().j])
+                    .filter(entry -> !matches[entry.getValue().i()][entry.getValue().j()])
                     .map(Map.Entry::getKey)
                     .reduce(Integer::sum)
                     .orElseThrow();

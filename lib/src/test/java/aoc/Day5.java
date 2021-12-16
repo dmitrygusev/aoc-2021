@@ -10,7 +10,6 @@ import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static aoc.Day4.Pos;
 import static aoc.Input.forDay;
 import static java.lang.Integer.parseInt;
 import static java.lang.Integer.signum;

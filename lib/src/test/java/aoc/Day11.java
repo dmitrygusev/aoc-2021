@@ -1,6 +1,5 @@
 package aoc;
 
-import aoc.Day4.Pos;
 import org.junit.jupiter.api.Test;
 
 import java.util.*;
