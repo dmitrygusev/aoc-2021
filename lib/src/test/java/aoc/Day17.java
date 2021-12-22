@@ -36,8 +36,24 @@ class Day17 {
     }
 
     record Range(int min, int max) {
+        public boolean contains(Range other) {
+            return intersect(other).length() == other.length();
+        }
+
         public boolean contains(int n) {
             return min() <= n && n <= max();
+        }
+
+        public Range trim(Range range) {
+            return new Range(Math.max(this.min, range.min), Math.min(this.max, range.max));
+        }
+
+        public int length() {
+            return max - min;
+        }
+
+        public Range intersect(Range other) {
+            return new Range(Integer.max(min, other.min), Integer.min(max, other.max));
         }
     }
 
