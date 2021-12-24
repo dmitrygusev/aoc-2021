@@ -57,7 +57,7 @@ public abstract class Graph<N, W> {
         N current = first;
 
         do {
-            for (Pair<N, W> edge : connections.get(current)) {
+            for (Pair<N, W> edge : connections.getOrDefault(current, List.of())) {
                 T value = addition.apply(result.get(current), weight.apply(edge.value()));
 
                 result.compute(edge.key(), (node, nodeValue) -> {
