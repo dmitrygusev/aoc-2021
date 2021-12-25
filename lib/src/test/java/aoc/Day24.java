@@ -88,7 +88,7 @@ class Day24 {
         /*
         Each pop should compensate corresponding push as in stack:
 
-            i[pushed] + c = i[popped] - b
+            i[pushed] + c = i[popped] + b
 
         i[0]+5=i[13]+13
         i[1]+5=i[12]+2
